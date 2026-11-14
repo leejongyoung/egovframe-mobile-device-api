@@ -111,8 +111,8 @@ flutter build apk --dart-define=API_BASE_URL=https://api.example.com
 
 설정 회귀 테스트 (Flutter SDK에 포함된 Dart):
 ```sh
-dart run test/app_config_test.dart
-dart run -DAPI_BASE_URL=https://api.example.com test/app_config_test.dart
+dart run tool/check_app_config.dart
+dart run -DAPI_BASE_URL=https://api.example.com tool/check_app_config.dart
 ```
 
 ### 2) 로컬 Web서버가 아닌 다른 서버를 이용하는 경우
