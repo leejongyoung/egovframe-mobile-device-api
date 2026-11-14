@@ -100,23 +100,20 @@ Flutter 서버와의 연동을 위해 웹서버 기동 후 설정 필요</br>
 
 ### 1) baseUrl 설정
 
-`lib > config > app_config.dart`
-- 기본값 : `static const String baseUrl = 'http://10.0.2.2:9700';`
-- WebServer 기동 시 로컬이 아닌 다른 서버에서 기동한 경우 변경 필요 (IP 또는 서버, 포트번호 확인)
-- 또는 개발용 url 설정
-    ```dart
-    // 개발/운영 환경별 설정 (필요시 확장 가능)
-    static const String devUrl = '사용할 서버 URL';
-    
-    static String get currentBaseUrl {
-        return devUrl;
-    }
-    ```
-- 변경 후 Clean > Build 실행
-    ```ps1
-    flutter clean
-    flutter pub get
-    ```
+기본값은 Android 에뮬레이터 전용 `http://10.0.2.2:9700`입니다. 소스를 편집하지 않고 빌드 시 지정합니다.
+
+```sh
+flutter run --dart-define=API_BASE_URL=https://api.example.com
+flutter build apk --dart-define=API_BASE_URL=https://api.example.com
+```
+
+실기기에서는 접근 가능한 서버 주소를, iOS 시뮬레이터에서 로컬 서버를 쓰면 `http://localhost:9700`을 지정합니다. 끝의 `/`는 생략합니다. HTTP 개발 서버는 아래 Android/iOS 보안 허용 설정도 필요하며 이 옵션이 보안 정책을 우회하지는 않습니다. 운영에서는 HTTPS를 사용합니다.
+
+설정 회귀 테스트 (Flutter SDK에 포함된 Dart):
+```sh
+dart run test/app_config_test.dart
+dart run -DAPI_BASE_URL=https://api.example.com test/app_config_test.dart
+```
 
 ### 2) 로컬 Web서버가 아닌 다른 서버를 이용하는 경우
 

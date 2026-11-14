@@ -2,7 +2,11 @@
 class AppConfig {
   // 서버 설정
   // 개발/운영 환경별 설정 (필요시 확장 가능)
-  static const String baseUrl = 'http://10.0.2.2:9700';
+  // Override for physical devices and non-Android emulators at build time.
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://10.0.2.2:9700',
+  );
   
   // API 엔드포인트들
   static const String acceleratorEndpoint = '/acl';
